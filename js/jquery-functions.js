@@ -1,6 +1,7 @@
 $("document").ready(function () {
   var currentQuestion = 0;
   var totalQuestions = 0;
+  var bypass = 0;
   var userAnswers = {};
   var all_questions;
   var all_questions_en;
@@ -443,12 +444,20 @@ $("document").ready(function () {
       //Εδώ προσπερνάω την ερώτηση για την μετάφραση
       else if (currentQuestion === 4 && selectedRadioButtonIndex === 2) {
         currentQuestion = currentQuestion + 2;
+        bypass = 1;
         userAnswers[5] = 1;
         sessionStorage.setItem(
           "answer_" + 5,
           1
         );
         loadQuestion(currentQuestion, true);
+
+        if(currentQuestion + 1 == totalQuestions){
+          currentLanguage === "greek"
+              ? $(this).text("Υποβολή")
+              : $(this).text("Submit");
+        }
+
       }
        else {
         //save selectedRadioButtonIndex to the storage
@@ -481,7 +490,14 @@ $("document").ready(function () {
 
   $("#backButton").click(function () {
     if (currentQuestion > 0) {
-      currentQuestion--;
+      if(bypass === 1 && currentQuestion === 6){
+        currentQuestion = 4;
+        bypass = 0;
+      }
+      else{
+        currentQuestion--;
+      }
+
       loadQuestion(currentQuestion, true);
 
       // Retrieve the answer for the previous question from userAnswers
