@@ -145,7 +145,7 @@ $("document").ready(function () {
   //text added in the final result
   function setResult(text) {
     const resultWrapper = document.getElementById("resultWrapper");
-    const result = document.createElement("h5");
+    //const result = document.createElement("h5");
     result.textContent = text;
     resultWrapper.appendChild(result);
   }
@@ -302,8 +302,8 @@ $("document").ready(function () {
     const errorEnd = document.createElement("h5");
     const error =
       currentLanguage === "greek"
-        ? "Λυπούμαστε αλλά δεν δικαιούστε το δελτίο μετακίνησης ΑΜΕΑ!"
-        : "We are sorry but you are not entitled to the transportation card for the disabled!";
+        ? "Λυπούμαστε αλλά δεν μπορείτε να προβείτε σε μεταγραφή ληξιαρχικής πράξης γάμου!"
+        : "We are sorry, but you cannot transcribe the marriage certificate!";
     errorEnd.className = "govgr-error-summary";
     errorEnd.textContent = error + " " + message;
     $(".question-container").html(errorEnd);
@@ -325,20 +325,18 @@ $("document").ready(function () {
       var answer = sessionStorage.getItem("answer_" + i);
       allAnswers.push(answer);
     }
-    if (allAnswers[0] === "2") {
-      getEvidencesById(9);
+    if (allAnswers[4] === "2") {
+      getEvidencesById(2);
     }
-    if (allAnswers[2] === "4") {
-      getEvidencesById(11);
+    if (allAnswers[5] === "1" && allAnswers[4] === "1") {
+      getEvidencesById(3);
     }
-    if (allAnswers[4] === "1") {
-      getEvidencesById(6);
-    } else if (allAnswers[4] === "2") {
-      getEvidencesById(7);
-    } else if (allAnswers[4] === "3") {
-      getEvidencesById(8);
+    if (allAnswers[6] === "3") {
+      getEvidencesById(4);
     }
-    if (
+
+    
+    /*if (
       allAnswers[5] === "1" ||
       (allAnswers[5] === "2")
     ) {
@@ -347,7 +345,6 @@ $("document").ready(function () {
         ? setResult("Δικαιούται και ο συνοδός το ίδιο δελτίο μετακίνησης.")
         : setResult("The companion is also entitled with the same transportation card.");
     }
-
     if (allAnswers[6] === "2") {
       getEvidencesById(3);
       getEvidencesById(4);
@@ -392,7 +389,7 @@ $("document").ready(function () {
       : setResult(
           "You are entitled to free transportation with the urban public bus of your region and a 50% discount for transportation outside the boundaries of your region with long-distance (intercity) bus services (named KTEL)."
         );
-    }
+    }*/
   }
 
   function submitForm() {
@@ -409,10 +406,10 @@ $("document").ready(function () {
     evidenceListElement.setAttribute("id", "evidences");
     currentLanguage === "greek"
       ? $(".question-container").append(
-          "<br /><br /><h5 class='answer'>Τα δικαιολογητικά που πρέπει να προσκομίσετε για να λάβετε το δελτίο μετακίνησης είναι τα εξής:</h5><br />"
+          "<br /><br /><h5 class='answer'>Τα δικαιολογητικά που πρέπει να προσκομίσετε είναι τα εξής:</h5><br />"
         )
       : $(".question-container").append(
-          "<br /><br /><h5 class='answer'>The documents you need to provide in order to receive your transportation card are the following:</h5><br />"
+          "<br /><br /><h5 class='answer'>The documents you need to provide are the following:</h5><br />"
         );
     $(".question-container").append(evidenceListElement);
     $("#faqContainer").load("faq.html");
@@ -422,21 +419,39 @@ $("document").ready(function () {
 
   $("#nextQuestion").click(function () {
     if ($(".govgr-radios__input").is(":checked")) {
+      var translated = 0;
       var selectedRadioButtonIndex =
         $('input[name="question-option"]').index(
           $('input[name="question-option"]:checked')
         ) + 1;
       console.log(selectedRadioButtonIndex);
-      if (currentQuestion === 0 && selectedRadioButtonIndex === 3) {
+      if (currentQuestion === 0 && selectedRadioButtonIndex === 2) {
         currentQuestion = -1;
-        currentLanguage === "greek" ? skipToEnd("Μπορείτε να το εκδώσετε ξανά μόνο μια φορά μετά από απώλεια.") : skipToEnd("You can reissue it only one time after loss.");
+        currentLanguage === "greek" ? skipToEnd("Αυτή η υπηρεσία αφορά μόνο Έλληνες πολίτες.") : skipToEnd("This service is only availabe to Greek citizens");
       } else if (currentQuestion === 1 && selectedRadioButtonIndex === 2) {
         currentQuestion = -1;
-        currentLanguage === "greek" ? skipToEnd("Πρέπει να είστε μόνιμος και νόμιμος κάτοικος της Ελλάδας.") : skipToEnd("You must be permanent and legal resident of Greece.");
+        currentLanguage === "greek" ? skipToEnd("Πρέπει να είστε μόνιμος κάτοικος της Ελλάδας.") : skipToEnd("You must be permanent resident of Greece.");
+      } else if (currentQuestion === 2 && selectedRadioButtonIndex === 2) {
+        currentQuestion = -1;
+        currentLanguage === "greek" ? skipToEnd("Πρέπει να είστε εγγεγραμμένος σε κάποιο δημοτολόγιο στην Ελλάδα.") : skipToEnd("You must be registered at municipality in Greece.");
       } else if (currentQuestion === 3 && selectedRadioButtonIndex === 2) {
         currentQuestion = -1;
-        currentLanguage === "greek" ? skipToEnd("Πρέπει να έχετε ποσοστό αναπηρίας 67% και άνω ή να είστε δικαιούχος του επιδόματος ΟΠΕΚΑ.") : skipToEnd("You must have a disability rate of 67% or more or be a beneficiary of the OPEKA benefit.");
-      } else {
+        currentLanguage === "greek" ? skipToEnd("Πρέπει να έχετε παντρευτεί σε χώρα του εξωτερικού.") : skipToEnd("You must be married in country outside of Greece.");
+      } else if (currentQuestion === 5 && selectedRadioButtonIndex === 2) {
+        currentQuestion = -1;
+        currentLanguage === "greek" ? skipToEnd("Πρέπει να έχετε μεταφράσει επισήμως το πιστοποιητικό γάμου σας.") : skipToEnd("You must have officially translated your marriage certificate.");
+      }
+      //Εδώ προσπερνάω την ερώτηση για την μετάφραση
+      else if (currentQuestion === 4 && selectedRadioButtonIndex === 2) {
+        currentQuestion = currentQuestion + 2;
+        userAnswers[5] = 1;
+        sessionStorage.setItem(
+          "answer_" + 5,
+          1
+        );
+        loadQuestion(currentQuestion, true);
+      }
+       else {
         //save selectedRadioButtonIndex to the storage
         userAnswers[currentQuestion] = selectedRadioButtonIndex;
         sessionStorage.setItem(
