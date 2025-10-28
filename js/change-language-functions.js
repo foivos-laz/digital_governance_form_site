@@ -8,7 +8,7 @@ var languageContent = {
       subTitle2: "H συμπλήρωση του ερωτηματολογίου δεν απαιτεί παραπάνω από 10 λεπτά.",
       subTitle3: "Δεν θα αποθηκεύσουμε ούτε θα μοιραστούμε τις απαντήσεις σας.",
       backButton: "Πίσω",
-      nextQuestion: "Επόμενη ερώτηση",
+      nextQuestion: "Επόμενη Ερώτηση",
       biggerCursor: "Μεγαλύτερος Δρομέας",
       bigFontSize: "Μεγάλο Κείμενο",
       readAloud: "Ανάγνωση",
