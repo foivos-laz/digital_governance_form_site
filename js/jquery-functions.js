@@ -419,7 +419,6 @@ $("document").ready(function () {
 
   $("#nextQuestion").click(function () {
     if ($(".govgr-radios__input").is(":checked")) {
-      var translated = 0;
       var selectedRadioButtonIndex =
         $('input[name="question-option"]').index(
           $('input[name="question-option"]:checked')
