@@ -6,7 +6,7 @@
     },
     {
         "id": 1,
-        "question": "Are you a permenant resident in Greece?",
+        "question": "Are you a permanent resident of Greece?",
         "options":["Yes","No"]
     },
     {
