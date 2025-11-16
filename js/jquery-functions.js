@@ -332,7 +332,7 @@ $("document").ready(function () {
     if (allAnswers[5] === "1" && allAnswers[4] === "1") {
       getEvidencesById(3);
     }
-    if (allAnswers[6] === "3") {
+    if (allAnswers[6] === "2") {
       getEvidencesById(4);
     }
 
