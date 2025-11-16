@@ -326,17 +326,19 @@ $("document").ready(function () {
       var answer = sessionStorage.getItem("answer_" + i);
       allAnswers.push(answer);
     }
-    if (allAnswers[4] === "2") {
-      getEvidencesById(2);
+    if (allAnswers[4] === "1") {
+      if (allAnswers[5] === "1"){
+        getEvidencesById(3);
+      }
     }
-    if (allAnswers[5] === "1" && allAnswers[4] === "1") {
-      getEvidencesById(3);
+    else{
+      getEvidencesById(2);
     }
     if (allAnswers[6] === "2") {
       getEvidencesById(4);
     }
 
-    
+  
     /*if (
       allAnswers[5] === "1" ||
       (allAnswers[5] === "2")
